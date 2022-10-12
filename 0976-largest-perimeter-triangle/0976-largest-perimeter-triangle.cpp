@@ -1,8 +1,9 @@
 class Solution {
 public:
-    int tri(int a, int b, int c){
+    inline int tri(int a, int b, int c){
        return a < b + c; 
     }
+    
     int largestPerimeter(vector<int>& nums) {
         sort(nums.begin(), nums.end());
         int n = nums.size();
