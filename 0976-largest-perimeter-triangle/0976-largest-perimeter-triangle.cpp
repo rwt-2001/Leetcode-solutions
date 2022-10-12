@@ -1,7 +1,7 @@
 class Solution {
 public:
     int tri(int a, int b, int c){
-       return (a + b > c) && (a+c > b )&& (b+c > a); 
+       return a < b + c; 
     }
     int largestPerimeter(vector<int>& nums) {
         sort(nums.begin(), nums.end());
