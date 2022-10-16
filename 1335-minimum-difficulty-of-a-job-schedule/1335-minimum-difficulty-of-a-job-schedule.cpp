@@ -3,7 +3,7 @@ public:
     int solve(vector<int> &j, int index, int curMax, int d, vector<vector<vector<int>>> &dp){
         // cout<<index<<" "<<index<<endl;
         
-        if(index==j.size()) return 300000;
+        if(index==j.size() || j.size() - index + 1 < d) return 300000;
         
         if(d==1){
             return *max_element(j.begin() + index, j.end());
