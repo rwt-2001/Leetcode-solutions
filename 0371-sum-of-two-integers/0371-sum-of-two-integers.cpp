@@ -8,8 +8,8 @@ public:
         
         for(int i = 0;i<=31;i++){
             
-            int bitA = (a>>i) & 1; 
-            int bitB = (b>>i) & 1;
+            short bitA = (a>>i) & 1; 
+            short bitB = (b>>i) & 1;
 
             
             ans = ans | ((bitA ^ bitB ^ lastCarry)<<i) ;
