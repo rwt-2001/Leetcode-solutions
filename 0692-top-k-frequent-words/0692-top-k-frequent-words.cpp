@@ -18,7 +18,7 @@ public:
         
         priority_queue<pair<int,string> , vector<pair<int,string>>,  cmp> pq;
         
-        vector<string> ans;
+        vector<string> ans(k);
         for(auto &m : mp){
             pq.push({m.second, m.first});
             if(pq.size()> k){
@@ -27,11 +27,11 @@ public:
         }
         
         while(!pq.empty()){
-            ans.push_back(pq.top().second);
+            ans[--k] = (pq.top().second);
             pq.pop();
         }
         
-        reverse(ans.begin(), ans.end());
+        
         return ans;
         
     }
