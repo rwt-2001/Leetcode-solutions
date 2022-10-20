@@ -17,7 +17,7 @@ public:
              {1,"I"}
         };
         string ans = "";
-        for(auto itr = mp.rbegin(); itr!=mp.rend(); itr++){
+        for(auto itr = mp.rbegin(); itr!=mp.rend() && num; itr++){
             int i  = num / itr->first;
             while(i--){
                 ans += itr->second;
