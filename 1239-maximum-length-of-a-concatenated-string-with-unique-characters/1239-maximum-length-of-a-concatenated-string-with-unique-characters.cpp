@@ -1,29 +1,37 @@
 class Solution {
 public:
     
-    int maxlen(int index, vector<string> &arr, unordered_set<int> st){
+    int maxlen(int index, vector<string> &arr, vector<int> &mp){
 
         if(index == arr.size()) return 0;
         
-        int notPick = maxlen(index+1, arr, st);
+        int notPick = maxlen(index+1, arr, mp);
         
         int pick = 0;
         int flag = 1;
         for(int i = 0;i<arr[index].size();i++){
-            if(st.find(arr[index][i]) != st.end()){
+            if(mp[arr[index][i] - 'a']){
                 flag = 0;
+                for(int j = 0;j<i;j++){
+                    mp[arr[index][j] - 'a']--;
+                }
                 break;
             }
-            st.insert(arr[index][i]);
+            mp[arr[index][i]-'a']++;
         }
         
         if(flag){
-            pick = arr[index].size() + maxlen(index+1, arr, st);
+            pick = arr[index].size() + maxlen(index+1, arr, mp);
+            for(int j = 0;j<arr[index].size();j++){
+                mp[arr[index][j] - 'a']--;
+            }
         }
         return max(pick, notPick);
     }
     int maxLength(vector<string>& arr) {
-        unordered_set<int> st;
-        return maxlen(0 ,arr, st);
+        
+        vector<int> mp(26);
+        return maxlen(0 ,arr, mp);
+        
     }
 };
