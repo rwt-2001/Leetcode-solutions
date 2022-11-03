@@ -36,17 +36,7 @@ public:
                 flag = 1;
             }
         }
-        
-         // for(int i = 0;i<words.size();i++){
-         //    string curStr = words[i];
-         //    string revStr = words[i];
-         //    reverse(revStr.begin(), revStr.end());
-         //    if(curStr == revStr && mp[curStr]==1){
-         //        ans += 2;
-         //        break;
-         //    }
-         // }
-        
+
         return ans;
     }
 };
