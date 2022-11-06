@@ -8,7 +8,8 @@ public:
         int j = n-1;
         
         long long ans = 0;
-        while(i <= j && k){
+        
+        while(k>0){
             while(i <= j && pql.size() < candidates){
                 pql.push(costs[i]);
                 i++; 
@@ -18,7 +19,7 @@ public:
                 j--;
             }
             
-            if(pqr.empty() || pql.top() <= pqr.top() ){
+            if(pqr.empty() || (!pql.empty() && pql.top() <= pqr.top()) ){
                 ans += pql.top();
                 pql.pop();
             }else{
@@ -27,16 +28,7 @@ public:
             }
             k--;
         }
-        while(k){
-            if( pqr.empty() || ( !pql.empty() && pql.top() <= pqr.top())){
-                ans += pql.top();
-                pql.pop();
-            }else {
-                ans += pqr.top();
-                pqr.pop();
-            }
-            k--;
-        }
+
         return ans;
     }
 };
