@@ -1,27 +1,17 @@
 class Solution {
 public:
     string makeGood(string s) {
-       
+        int p = -1;
+        int i ;
         
-        string ans = "";
-        int i;
-        for(i = 0;i < s.size() - 1;i++){
-            if(s[i] - 'a' == s[i+1] - 'A' || s[i] - 'A' == s[i+1] - 'a') i+=1;
-            else if(ans != "" && (ans[ans.size()-1] - 'A' == s[i] - 'a'|| ans[ans.size()-1] - 'a' == s[i] - 'A') ){
-                ans = ans.erase(ans.size()-1,1);
+        for(i = 0;i<s.size();i++){
+            if(p != -1 && abs(s[i] - s[p]) == 32){
+                p--;
             }else{
-                ans += s[i];
+                s[++p] = s[i];
             }
         }
-        if(i==s.size() - 1){
-         if(ans != "" && (ans[ans.size()-1] - 'A' == s[i] - 'a'|| ans[ans.size()-1] - 'a' == s[i] - 'A') ){
-                ans = ans.erase(ans.size()-1,1);
-        }else{
-                ans += s[i];
-        }
-        }
         
-        return ans;
-        
+        return s.substr(0, p+1);
     }
 };
