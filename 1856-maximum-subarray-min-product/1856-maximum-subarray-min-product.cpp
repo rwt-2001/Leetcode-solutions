@@ -18,7 +18,6 @@ public:
                 stk.pop();
             }
             stk.push(i);
-                
             i++;
         }
         i = nums.size() - 1;
@@ -47,7 +46,7 @@ public:
             
             // cout<<l<<" "<<r<<endl;
             if(prevMin[i] == -1 && nextMin[i]==-1){
-                maxSum = max(maxSum, ((prefix[nums.size()-1])*1LL * nums[i] * 1LL));
+                maxSum = max(maxSum, ((prefix[nums.size()-1]) * nums[i] * 1LL));
             }
          
             maxSum = max(maxSum, (((r!=-1 ? prefix[r-1] : prefix[n-1] )- (l != -1 ? prefix[l] : 0))*1LL * nums[i] * 1LL));
