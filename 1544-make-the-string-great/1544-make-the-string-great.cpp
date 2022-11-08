@@ -1,10 +1,10 @@
 class Solution {
 public:
     string makeGood(string s) {
-        int p = -1;
+        int p = 0;
         int i ;
         
-        for(i = 0;i<s.size();i++){
+        for(i = 1;i<s.size();i++){
             if(p != -1 && abs(s[i] - s[p]) == 32){
                 p--;
             }else{
