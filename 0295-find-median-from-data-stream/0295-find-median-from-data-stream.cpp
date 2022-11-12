@@ -1,33 +1,34 @@
 class MedianFinder {
-    priority_queue<double> left;
-    priority_queue<double, vector<double> , greater<double>> right;
+    priority_queue<int> leftheap;
+    priority_queue<int, vector<int>, greater<int>> rightheap;
 public:
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-        left.push(num);
+        leftheap.push(num);
         
-        if(left.size() - right.size() > 1){
-            right.push(left.top());
-            left.pop();
+        if(leftheap.size() - rightheap.size() > 1){      
+            rightheap.push(leftheap.top());
+            leftheap.pop();
+        }else if(rightheap.size() != 0 && leftheap.top() > rightheap.top()){
+            int rt = rightheap.top();
+            rightheap.pop();
+            rightheap.push(leftheap.top());
+            leftheap.pop();
+            leftheap.push(rt);
         }
-        if(!right.empty() && left.size() - right.size() == 1 && left.top() > right.top()){
-            double temp = left.top();
-            left.pop();
-            left.push(right.top());
-            right.pop();
-            right.push(temp);
-        }
+        
+        
     }
     
     double findMedian() {
-        if(left.size() != right.size()){
-           return left.top();
+        if(leftheap.size() == rightheap.size()){
+            return (double)(leftheap.top() + rightheap.top()) / 2.0;
         }
-        // cout<<left.top()<<" "<<right.top()<<endl;
-        return (left.top() + right.top()) / 2;
+        
+        return leftheap.top();
     }
 };
 
