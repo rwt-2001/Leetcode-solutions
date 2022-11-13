@@ -4,7 +4,6 @@ public:
         int n = s.size();
         int i = n-1;
         int j = n-1;
-        int flag = 0;
         while(j>=0){
             if(s[j]!=' '){
                 i = j;
@@ -50,7 +49,7 @@ public:
             s.pop_back();
             j--;
         }
-        // ans.erase(ans.size()-1, 1);
+        
         return s;
         
     }
