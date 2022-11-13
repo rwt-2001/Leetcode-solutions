@@ -5,9 +5,10 @@ public:
         int i = n-1;
         int j = n-1;
         string ans = "";
-        
+        int flag = 0;
         while(j>=0){
             if(s[j]!=' '){
+                if(flag) ans+=' ';
                 i = j;
                 while(i>=0 && s[i]!=' '){
                     i--;
@@ -19,13 +20,13 @@ public:
                     ans+=s[i];
                     i++;
                 }
-                ans += ' ';
+                flag = 1;
                 j = temp-1;
             }
             
             j--;
         }
-        ans.erase(ans.size()-1, 1);
+        // ans.erase(ans.size()-1, 1);
         return ans;
         
     }
