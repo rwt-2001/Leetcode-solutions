@@ -8,7 +8,7 @@ public:
         
         int ans = INT_MIN;
         int n = words.size();
-        map<string,int> mp;
+        unordered_map<string,int> mp;
         
         for(auto &word : words){
             for(int i = 0;i<word.size();i++){
