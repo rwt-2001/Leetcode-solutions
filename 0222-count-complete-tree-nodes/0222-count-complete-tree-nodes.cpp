@@ -11,33 +11,30 @@
  */
 class Solution {
 public:
-
-    int dfsL(TreeNode * root){
+    int calculateHeightLeft(TreeNode * root){
         if(!root) return 0;
         
-        return 1 + dfsL(root->left);
+        return 1 + calculateHeightLeft(root->left);
     }
-    int dfsR(TreeNode * root){
+    int calculateHeightRight(TreeNode * root){
         if(!root) return 0;
         
-        return 1 + dfsR(root->right);
+        return 1 + calculateHeightRight(root->right);
     }
     
-    int f(TreeNode* root){
+    
+    int calculateheight(TreeNode * root){
         if(!root) return 0;
+        int hleft = calculateHeightLeft(root);
+        int hright = calculateHeightRight(root);
         
-        int leftH = dfsL(root);
-        int rightH = dfsR(root);
-        
-        if(leftH == rightH){
-            return pow(2, leftH) - 1;
+        if(hleft == hright){
+            return pow(2, hright) - 1;
         }
         
-        return 1 + f(root->left) + f(root->right);
-        
+        return 1 + calculateheight(root->left) + calculateheight(root->right);
     }
-    
     int countNodes(TreeNode* root) {
-        return f(root);
+        return calculateheight(root);
     }
 };
