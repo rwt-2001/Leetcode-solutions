@@ -10,9 +10,16 @@
 class Solution {
 public:
     int guessNumber(int n) {
-       int num = 1;
-        while(guess(num)==1){
-            num++;
+        long long l = 1;
+        long long r = n;
+        long long num = (l+r)/2;
+        while(guess(num)==1 || guess(num)==-1){
+            if(guess(num)==1 ){
+                l = num+1;
+            }else if(guess(num)==-1){
+                r = num;
+            }
+            num = (l+r)/2;
         }
         return num;
     }
