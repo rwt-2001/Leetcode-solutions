@@ -1,11 +1,11 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unsigned int ans = 0;
+        int ans = 0;
         
         for(int i = 0;i<32;i++){
             int cnt = 0;
-            for(unsigned int num : nums){
+            for(auto num : nums){
                 if(num & (1<<i)){
                     cnt++;
                 }
