@@ -5,7 +5,7 @@ public:
         
         for(int i = 0;i<32;i++){
             int cnt = 0;
-            for(auto num : nums){
+            for(auto &num : nums){
                 if(num & (1<<i)){
                     cnt++;
                 }
