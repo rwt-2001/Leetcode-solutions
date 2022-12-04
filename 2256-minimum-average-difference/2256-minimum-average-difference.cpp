@@ -1,35 +1,25 @@
 class Solution {
 public:
     int minimumAverageDifference(vector<int>& nums) {
-        long long int min_avg = INT_MAX;
-        int i_avg = -1;
-        long long int pre_Sum = 0;
-        long long int  post_Sum = 0;
-        int sz = nums.size();
-        long long int avg_diff;
-        for(int i = 0;i<sz;i++)
-            post_Sum+=nums[i];
+        long long tSum = 0;
+        for(auto &num  : nums) tSum += num;
+        long long iSum = 0;
+        int n = nums.size();
         
-        for(int i = 0;i<sz-1;i++){
-            
-            pre_Sum+=nums[i];
-            post_Sum-=nums[i];
-            
-            avg_diff = abs((pre_Sum/(i+1)) - (post_Sum/(sz-i-1)));
-       
-            if(avg_diff<min_avg){
-                min_avg = avg_diff;
-                i_avg = i;
+        int minAvg = INT_MAX;
+        int index = -1;
+        for(int i = 0;i<n ; i++){
+            tSum -= nums[i];
+            iSum += nums[i];
+            // cout<<i+1 << " "<<nums.size() -1 -i<<endl;
+            int avg = abs( int(iSum / (i + 1)) - ((n - 1 - i != 0) ? int(tSum / (n - 1 - i)) : 0));
+            if(avg < minAvg){
+                index = i;
+                minAvg = avg;
             }
-            
         }
-        pre_Sum+=nums[sz-1];
-        avg_diff = abs((pre_Sum/sz));
-        if(avg_diff<min_avg){
-                min_avg = avg_diff;
-                i_avg = sz-1;
-        }
-        return i_avg;
+        
+        return index;
         
     }
 };
