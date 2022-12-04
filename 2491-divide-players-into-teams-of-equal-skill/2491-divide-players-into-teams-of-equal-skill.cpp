@@ -10,7 +10,7 @@ public:
             int curSkill = skill[i] + skill[n-1-i];
             if(curSkill != prevValue) return -1;
             chem += (skill[i] * skill[n-1-i]);
-            cout<<(skill[i] * skill[n-1-i])<<endl;
+            // cout<<(skill[i] * skill[n-1-i])<<endl;
         }
         return chem;
     }
