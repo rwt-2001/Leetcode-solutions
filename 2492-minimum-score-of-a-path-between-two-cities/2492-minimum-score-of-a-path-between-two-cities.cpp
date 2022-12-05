@@ -37,9 +37,6 @@ class UnionFind{
             rank[u] = min({rank[u], cost, rank[v]});
             rank[v] = min({rank[v] ,cost, rank[u]});
         }
-        
-       
-        
 
     }
     
