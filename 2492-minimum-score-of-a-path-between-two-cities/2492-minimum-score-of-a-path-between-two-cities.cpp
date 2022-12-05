@@ -23,20 +23,17 @@ class UnionFind{
         v = findParent(v);
         if(v==1){
             id[u] = v;
-            rank[u] = min(rank[u], cost);
-            rank[v] = min({rank[v] ,cost, rank[u]});
         }
         else if(u==1){
             id[v] = u;
-            rank[u] = min({rank[u], cost, rank[v]});
-            rank[v] = min(rank[v] ,cost);
         }
       
         else{
             id[u] = v;
+        }
             rank[u] = min({rank[u], cost, rank[v]});
             rank[v] = min({rank[v] ,cost, rank[u]});
-        }
+        
 
     }
     
