@@ -23,28 +23,25 @@ public:
         //Tab
         int col = matrix[0].size() - 1;
         int row = matrix.size() - 1;
-        vector<vector<int>> dp(matrix.size() + 1, (vector<int> (matrix[0].size(), 1e6)));
-        for(int i = 0;i<=col;i++){
-            dp[row + 1][i] = 0;
-        }
+
         
         
-            for(int i = row; i>=0; i--){
-                for(int j = col; j>= 0; j--){
+        for(int i = row-1; i>=0; i--){
+            for(int j = col; j>= 0; j--){
                 int cl = 1e6, cb = 1e6, cr = 1e6;
                 
                 if(j-1 >= 0)
-                    cl = min(cl, dp[i + 1][j - 1]);
+                    cl = min(cl, matrix[i + 1][j - 1]);
                 
-                cb = min(cb, dp[i + 1][j]);
+                cb = min(cb, matrix[i + 1][j]);
                 
                 if(j + 1 <= col)
-                    cr = min(cr, dp[i + 1][j+1]);
+                    cr = min(cr, matrix[i + 1][j+1]);
                 
-                dp[i][j] = matrix[i][j] + min({cl, cr, cb});
+                matrix[i][j] = matrix[i][j] + min({cl, cr, cb});
             }
         }
         
-        return *min_element(dp[0].begin(), dp[0].end());
+        return *min_element(matrix[0].begin(), matrix[0].end());
     }
 };
