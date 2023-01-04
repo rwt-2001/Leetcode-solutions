@@ -12,7 +12,7 @@ public:
         for(auto &m : mp){
             
             int val = m.second;
-            cout<<m.first<<" "<<val<<endl;
+            // cout<<m.first<<" "<<val<<endl;
             if((val % 3) % 2 == 0){
                 ans += (val / 3);
                 ans += (val%3)/2;
