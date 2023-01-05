@@ -4,7 +4,6 @@ public:
         
         sort(points.begin(), points.end());
         int min_req = 0;
-        
         int i = 0;
         int n = points.size();
         while(i < n)
