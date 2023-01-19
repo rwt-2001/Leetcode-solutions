@@ -1,99 +1,91 @@
-class UF{
+class UF
+{
     int *parent;
     int *rank;
     
     public:
     
-    UF (int size)
+    UF(int size)
     {
         parent = new int[size];
         rank = new int[size];
-        for(int i = 0;i<size;i++)
-        {
-            parent[i] = i;
-        }
-        for(int i = 0;i<size;i++)
-        {
+        iota(parent, parent + size,0);
+        for(int i = 0; i< size;i++)
             rank[i] = 0;
-        }
     }
-    int find_parent(int node)
+    
+    int find(int node)
     {
         if(node == parent[node]) return node;
-        return parent[node] = find_parent(parent[node]);
+        return parent[node]  = find(parent[node]);
     }
-    void connect(int p, int q)
-    {
-        int i = find_parent(p), j = find_parent(q);
-        if (i == j)
-            return;
-        if (rank[i] < rank[j])
-        {
-            parent[i] = j;
-        }
-        else
-        {
-            parent[j] = i;
-            if (rank[i] == rank[j])
-                rank[j]++;
-        }
-    }
-
     
+    void connect(int u, int v){
+        
+        u = find(u);
+        v = find(v);
+        
+        if(u == v) return;
+        
+        if(rank[u] > rank[v])
+        {
+            parent[v] = u;
+        }else if(rank[u] < rank[v]){
+            parent[u] = v;
+        }else{
+            parent[v] = u;
+            rank[v]++;
+        }
+        
+    }
 };
 class Solution {
 public:
-    int ans = 0;
-    int numberOfGoodPaths(vector<int>& vals, vector<vector<int>>& edges) 
-    {
-        map<int,vector<int>> valueMap;
-        for (int i = 0;i < vals.size(); i++)
-        {
-            valueMap[vals[i]].push_back(i);
-        }
-        
+    int numberOfGoodPaths(vector<int>& vals, vector<vector<int>>& edges) {
+        map<int,vector<int>> valueIndex;
         int nodes = vals.size();
-        
+        for(int i = 0;i < nodes; i++)
+        {
+            valueIndex[vals[i]].push_back(i);
+        }
         
         vector<vector<int>> graph(nodes);
         
-        for(auto e : edges)
+        for(auto &edge : edges)
         {
-            int u = e[0];
-            int v  = e[1];
+            int u = edge[0];
+            int v = edge[1];
             graph[u].push_back(v);
             graph[v].push_back(u);
         }
         
-        int ans = 0;
+        int res = 0;
         UF uf(nodes);
         
-        for(auto &val : valueMap)
+        for(auto &val : valueIndex)
         {
-            // cout<<val.first<<"->";
-            for( auto &node : val.second)
+            for(auto &node : val.second)
             {
-                for(auto &adjnode : graph[node])
+                for(auto &adjNode : graph[node])
                 {
-                    
-                    if(vals[adjnode] <= vals[node])
-                        uf.connect(node, adjnode);
-                    
+                    if(vals[adjNode] <= vals[node])
+                    {
+                        uf.connect(adjNode, node);
+                    }
                 }
-                
             }
-            map<int,int> count;
-                
-            for( auto &node : val.second)
+            
+            map<int,int> good_path;
+            for(auto &node : val.second)
             {
-                int parent = uf.find_parent(node);
-                count[parent]++;
-                ans+= count[parent];
+                
+                int parent = uf.find(node);
+                good_path[parent]++;
+                res+=good_path[parent];
             }
-            // cout<<endl;
+            
         }
         
-        
-        return ans;
+        return res;
     }
 };
