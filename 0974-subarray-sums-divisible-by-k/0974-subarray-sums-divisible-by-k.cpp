@@ -3,7 +3,7 @@ public:
     
     int subarraysDivByK(vector<int>& nums, int k) {
         
-        map<int,int> mp;
+        vector<int> mp(k);
         int sum = 0;
         mp[0]=1;
         
