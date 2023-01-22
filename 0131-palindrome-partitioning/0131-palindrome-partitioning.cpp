@@ -12,7 +12,7 @@ public:
         }  
         return true;
     }
-    void solve(string &s, int i, int j, vector<string> ans)
+    void solve(string &s, int i, int j, vector<string> &ans)
     {
         if(i >= s.size())
         {
@@ -32,7 +32,8 @@ public:
         solve(s,i, j + 1, ans);
     }
     vector<vector<string>> partition(string s) {
-        solve(s, 0, 0, vector<string> ());
+        vector<string> ans;
+        solve(s, 0, 0, ans);
         return answer;
     }
 };
