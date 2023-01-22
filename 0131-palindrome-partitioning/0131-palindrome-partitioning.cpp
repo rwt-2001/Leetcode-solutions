@@ -17,10 +17,7 @@ public:
         if(i >= s.size())
         {
             if(ans.size() == 0) return;
-            for(auto &str : ans)
-            {
-                if(!isPalindrome(str)) return;
-            }
+            
             answer.push_back(ans);
         }
         if(j >= s.size()) return;
