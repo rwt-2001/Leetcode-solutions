@@ -24,11 +24,15 @@ public:
             answer.push_back(ans);
         }
         if(j >= s.size()) return;
+        int flag = 0;
+        if(isPalindrome(s.substr(i,j - i + 1)))
+        {
+            int flag = 1;
+            ans.push_back(s.substr(i,j - i + 1));
+            solve(s, j + 1, j + 1, ans);
+            ans.pop_back();
+        }
         
-        ans.push_back(s.substr(i,j - i + 1));
-        solve(s, j + 1, j + 1, ans);
-        
-        ans.pop_back();
         solve(s,i, j + 1, ans);
     }
     vector<vector<string>> partition(string s) {
