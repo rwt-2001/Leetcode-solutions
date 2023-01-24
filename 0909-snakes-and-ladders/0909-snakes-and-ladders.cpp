@@ -3,7 +3,7 @@ public:
     int snakesAndLadders(vector<vector<int>>& board) {
 
         int n = board.size();
-        map<int,int> nxt;
+        unordered_map<int,int> nxt;
         int i = 2;
         int row = n - 1; 
         int col = 0;
