@@ -1,32 +1,34 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        if(s1.size() > s2.size() ) return false;
+        if(s1.size() > s2.size()) return false;
         
-        
-        vector<int> targetMap(26), curMap(26);
-        
-        for(auto &c : s1){
-            targetMap[c-'a']++;
+        vector<int> tar(26);
+        for(auto c : s1)
+        {
+            tar[c-'a']++;
         }
         
-        int i = 0;
-        int j = 0;
+        vector<int> tar2(26);
+        int i = 0, j = 0;
         
-        while(j<s2.size()){
-            
-            if(j - i + 1 <= s1.size()){
-                curMap[s2[j] - 'a']++;
-            }else{
-                
-                if(targetMap == curMap) return true;
-                curMap[s2[i++] - 'a']--;
-                curMap[s2[j] - 'a']++;
+        while(j < s2.size())
+        {
+            if(j - i + 1 <= s1.size())
+            {
+                tar2[s2[j] - 'a']++;
+                j++;
             }
-            j++;
+            else{
+                if(tar == tar2) return true;
+                tar2[s2[i] - 'a']--;
+                tar2[s2[j] - 'a']++;
+                i++;
+                j++;
+            }
+            
             
         }
-        
-        return curMap == targetMap;
+        return tar == tar2;
     }
 };
