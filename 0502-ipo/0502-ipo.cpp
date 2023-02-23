@@ -18,10 +18,6 @@ public:
         
         sort(arr.begin(), arr.end());
             
-        for(auto val : arr)
-        {
-            cout<<val.first<<" "<<val.second<<endl;
-        }
         
         priority_queue<pair<int,int>, vector<pair<int,int>>, Compare> pq;
         int i = 0;
