@@ -19,17 +19,17 @@ public:
         sort(arr.begin(), arr.end());
             
         
-        priority_queue<pair<int,int>, vector<pair<int,int>>, Compare> pq;
+        priority_queue<int> pq;
         int i = 0;
         while(k>0)
         {
             while(i < n && w >= arr[i].first)
             {
-                pq.push({arr[i++]});
+                pq.push({arr[i++].second});
             }
             if(pq.size())
             {
-                 w += pq.top().second;
+                 w += pq.top();
                  pq.pop();
             }
             k--;
