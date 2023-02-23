@@ -21,7 +21,7 @@ public:
         
         priority_queue<pair<int,int>, vector<pair<int,int>>, Compare> pq;
         int i = 0;
-        while(k>0 && i < n)
+        while(k>0)
         {
             while(i < n && w >= arr[i].first)
             {
@@ -36,12 +36,7 @@ public:
             
         }
         
-        while(k>0 && pq.size())
-        {
-            w += pq.top().second;
-            pq.pop();
-            k--;
-        }
+
         
         return w;
         
