@@ -82,9 +82,7 @@ public:
         int colMid = c1 + cols / 2 - 1;
         
         
-        cout<<r1<<" "<<rowMid<<" "<<rowMid+1<<r2<<endl;
-        cout<<c1<<" "<<colMid<<" "<<colMid+1<<r2;
-     
+       
         
         //topLeft
       
