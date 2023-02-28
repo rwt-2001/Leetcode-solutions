@@ -22,13 +22,13 @@ public:
         string res = to_string(root->val);
         
         string leftR =dfs(root->left);
-        string rightL = dfs(root->right);
+        
       
         res+="(";
         res+=leftR;
         res+=")";
         
-        
+        string rightL = dfs(root->right);
  
         res+="(";
         res+=rightL;
