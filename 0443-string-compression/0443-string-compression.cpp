@@ -1,50 +1,29 @@
 class Solution {
 public:
-    int compress(vector<char>& chars) {
+    int compress(vector<char>& arr) {
         int i = 0;
         int j = 0;
-        int len = 0;
-        int index = 0;
         
-        while(j<chars.size()){
-            if(chars[i]==chars[j]){
-                len++;
-                j++;
-            }
+        int k = 0;
+        while(i < arr.size())
+        {
+            while(j < arr.size() && arr[i]==arr[j]) j++;
             
-            else
+            arr[k++] = arr[i];
+            int len = j - i;
+            
+            if(len > 1)
             {
-                // cout<<chars[i]<<" "<<len<<endl;
-                if(len > 1) {
-                    chars[index++] = chars[i];
-                    string number = to_string(len);
-                    for(auto &c : number){
-                        chars[index++] =c;
-                    }
+                string lenS = to_string(len);
+                for(auto c : lenS) {
+                    arr[k++] = c;
                 }
-                else {
-                    chars[index++] = chars[i];
-                }
-                len = 0;
-                i = j;
-                
             }
             
-        }
-     
-        if(len > 1) {
-            chars[index++] = chars[i];
-            string number = to_string(len);
-            
-            for(auto &c : number){
-                chars[index++] =c;
-            }
-        }
-        else {
-            // cout<<chars[i];
-            chars[index++] = chars[i];
+            i = j;
+            j++;
         }
         
-        return index;
+        return k;
     }
 };
