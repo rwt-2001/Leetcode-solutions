@@ -92,7 +92,6 @@ class Solution
         }while(end && end->next && start != end);
         
         if(start != end) return;
-        
         start = head;
         
         while(start != end){
