@@ -10,8 +10,8 @@
  * };
  */
 class Solution {
-    unordered_map<int,int> in;
-    unordered_map<int,int> po;
+    map<int,int> in;
+    map<int,int> po;
     
 public:
     TreeNode* build(int l1, int r1, vector<int>& inorder, vector<int>& postorder)
@@ -19,21 +19,17 @@ public:
         if(l1==r1) return (new TreeNode(inorder[l1]));
         if(l1<0 || r1>=inorder.size() || l1 > r1 ) return nullptr;
         
-     
         int index = 0;
         
         for(int i = l1; i <= r1; i++){
            index = max(index, po[inorder[i]]);
-        }
-        
+        }    
         
         int rootdata = postorder[index];
         TreeNode *node = new TreeNode(rootdata);
-        
-        
+
         int newR1 = in[rootdata] - 1;
         int newL1 = in[rootdata] + 1;
-        
         node->left = build(l1, newR1, inorder, postorder);
         node->right = build(newL1, r1, inorder, postorder);
         return node;
