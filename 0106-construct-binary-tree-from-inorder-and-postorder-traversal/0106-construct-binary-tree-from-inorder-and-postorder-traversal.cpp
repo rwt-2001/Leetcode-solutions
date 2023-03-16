@@ -10,14 +10,14 @@
  * };
  */
 class Solution {
-    map<int,int> in;
-    map<int,int> po;
+    unordered_map<int,int> in;
+    unordered_map<int,int> po;
     
 public:
     TreeNode* build(int l1, int r1, vector<int>& inorder, vector<int>& postorder)
     {
         if(l1==r1) return (new TreeNode(inorder[l1]));
-        if(l1<0 || r1>=inorder.size() || l1 > r1 ) return nullptr;
+        if(l1 > r1 ) return nullptr;
         
         int index = 0;
         
