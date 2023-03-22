@@ -1,55 +1,33 @@
-class UnionFind{
-    int  *id;
-    int *rank;
-    
-    public:
-    
-    UnionFind(int size){
-        size++;
-        
-        id = new int[size];
-        rank = new int[size];
-        for(int i = 0;i<size;i++) rank[i] = INT_MAX;
-        iota(id, id+size, 0);
-    }
-    
-    int findParent(int u){
-        if(id[u]==u) return u;
-        return findParent(id[u]);
-    }
-    
-    void connectNode(int u, int v, int cost){
-        u = findParent(u);
-        v = findParent(v);
-        if(v==1){
-            id[u] = v;
-        }
-        else if(u==1){
-            id[v] = u;
-        }
-      
-        else{
-            id[u] = v;
-        }
-            rank[u] = min({rank[u], cost, rank[v]});
-            rank[v] = min({rank[v] ,cost, rank[u]});
-        
-
-    }
-    
-    int returnMin(){
-        return rank[1];
-    }
-    
-};
 class Solution {
 public:
-    int minScore(int n, vector<vector<int>>& roads) {
-        UnionFind uf(n);
-        
-        for(auto &road : roads){
-            uf.connectNode(road[0], road[1], road[2]);
+    void dfs(vector<int> &visited,vector<vector<pair<int,int>>> &graph, int parent, int &minScore)
+    {
+        if(visited[parent]) return;
+        visited[parent] = 1;
+        for(auto child: graph[parent])
+        {
+            minScore = min(minScore, child.second);
+            dfs(visited, graph, child.first, minScore);
         }
-        return uf.returnMin();
+    }
+    int minScore(int n, vector<vector<int>>& roads) {
+        vector<vector<pair<int,int>>> graph(n);
+        
+        int minScore = INT_MAX;
+        
+        for(auto entry : roads)
+        {
+            int n1 = entry[0] - 1;
+            int n2 = entry[1] - 1;
+            int w = entry[2];
+            
+            graph[n1].push_back({n2, w});
+            graph[n2].push_back({n1, w});
+        }
+        vector<int> visited(n);
+        dfs(visited, graph, 0, minScore);
+        
+        return minScore;
+        
     }
 };
