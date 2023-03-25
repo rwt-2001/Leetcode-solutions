@@ -25,7 +25,7 @@ public:
             graph[v].push_back(u);
         }
         
-        vector<int> comp;
+        vector<long long> comp;
         
         for(int i = 0; i < n; i++)
         {
@@ -34,7 +34,7 @@ public:
         }
         
         long long res = 0;
-        long long cnt = n;
+        int cnt = n;
         
         for(auto nodes : comp)
         {
