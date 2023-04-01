@@ -22,7 +22,7 @@ class Solution {
         
         mid = n/2;
         
-        long long element = (((2*(mid-1) + 1) + (2*mid + 1)) / 2) - 1;
+        long long element = 2*(mid) - 1;
         
         return (mid*(1 + element ))/2;
     }
