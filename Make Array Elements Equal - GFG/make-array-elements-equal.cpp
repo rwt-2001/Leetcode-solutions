@@ -15,7 +15,7 @@ class Solution {
         if(n&1)
         {
             mid = n/2;
-            long long element = (2*mid + 1) - 1;
+            long long element = 2*mid;
             return (mid*(element + 2))/2;
         }
         // 1 3 5 7
