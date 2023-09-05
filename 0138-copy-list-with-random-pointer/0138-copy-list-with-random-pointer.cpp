@@ -30,7 +30,6 @@ public:
             nhead = nhead->next;
             temp = temp->next;
         }
-        cout<<"here";
         nhead = temphead->next;
         temp = head;
         while(nhead && temp)
