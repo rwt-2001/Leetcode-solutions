@@ -1,23 +1,22 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        vector<int> mp(26);
-        
+        int num = 0;
         for(int i = 0; i < t.size(); i++)
         {
-            mp[t[i] - 'a']++;
+            num = (num ^ (1 << (t[i] - 'a')));
             if(i < s.size())
             {
-                mp[s[i] - 'a']--;
+                num = (num ^ (1 << (s[i] - 'a')));
             }
         }
         char ans;
      
         for(int i = 0; i < 26;i++)
         {
-            if(mp[i])
-            {
+            if(num & (1<<i)){
                 ans = 'a' + i;
+                break;
             }
         }
         return ans;
