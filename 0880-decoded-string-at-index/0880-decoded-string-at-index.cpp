@@ -2,21 +2,20 @@ class Solution {
 public:
     string decodeAtIndex(string s, int k) {
         long long len = 0;
-        int index;
-        for(int i = 0;len < k;i++)
+        int index = 0;
+        for( ;len < k;index++)
         {
-            char c = s[i];
+            char c = s[index];
             if(c >= '0' && c<='9')
             {
                 len = len* (c-'0');
             }else{
                 len++;
             }
-            index = i;
         }
         
         string ans = "";
-        for(int i = index; i>=0;i--)
+        for(int i = index-1; i>=0;i--)
         {
             char c = s[i];
             if(c >= '0' && c<='9' && len)
