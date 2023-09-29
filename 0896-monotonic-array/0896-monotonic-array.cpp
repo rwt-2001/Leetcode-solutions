@@ -8,8 +8,9 @@ public:
         {
             if(nums[i-1] < nums[i]) isInc = true;
             if(nums[i-1] > nums[i]) isDec = true;
+            if((isInc && isDec)) return false;
         }
         
-        return !(isInc && isDec);
+        return true;
     }
 };
