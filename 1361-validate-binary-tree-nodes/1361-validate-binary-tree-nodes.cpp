@@ -16,7 +16,7 @@ public:
     {
         if (id[p] == p)
             return p;
-        return find(id[p]);
+        return id[p] = find(id[p]);
     }
     int getCount()
     {
