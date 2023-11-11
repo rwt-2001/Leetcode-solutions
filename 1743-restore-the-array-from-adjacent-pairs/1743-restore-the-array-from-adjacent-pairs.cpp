@@ -2,38 +2,38 @@ class Solution {
     vector<int> ans;
 public:
     
-    void dfs(int node, map<int, vector<int>> &graph, map<int,int> &visited)
-    {
-        if(visited[node] == 1) return;
-        ans.push_back(node);
-        visited[node] = 1;
-        for(auto child: graph[node])
-        {
-            dfs(child, graph, visited);
-        }
-    }
+    
     vector<int> restoreArray(vector<vector<int>>& arr) {
         map<int,vector<int>> graph;
-        map<int,int> cnt;
         for(auto &num: arr)
         {
-            cnt[num[0]]++;
-            cnt[num[1]]++;
             graph[num[0]].push_back(num[1]);
             graph[num[1]].push_back(num[0]);
         }
-        for(auto val: cnt)
+        for(auto val: graph)
         {
-            if(val.second == 1){
+            if(val.second.size() == 1){
                 ans.push_back(val.first);
                 break;
             }
         }
-        map<int,int> visited;
-        visited[ans[0]] = 1;
-        for(auto child: graph[ans[0]])
+        
+        int prev_node = -1;
+        int cur_node = ans[0];
+        
+        while(ans.size() != graph.size())
         {
-            dfs(child, graph, visited);
+            
+            for(auto &next: graph[cur_node])
+            {
+                if(next != prev_node)
+                {
+                    prev_node = cur_node;
+                    cur_node = next;
+                    ans.push_back(cur_node);
+                    break;
+                }
+            }
         }
         
         return ans;
