@@ -12,7 +12,7 @@ public:
             rev[i] = nums[i] - stoi(cur_num);
         }
         
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         int ans = 0;
         for(auto num: rev)
         {
