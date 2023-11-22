@@ -1,15 +1,24 @@
 class Solution {
     int mod = 1e9 + 7;
 public:
+    int rev_number(int num)
+    {
+        int new_num = 0;
+        while(num)
+        {
+            new_num *= 10;
+            new_num+= (num%10);
+            num/=10;
+        }
+        return new_num;
+    }
     int countNicePairs(vector<int>& nums) {
         vector<int> rev(nums.size());
         
         for(int i = 0;i < nums.size(); i++)
         {
             
-            string cur_num = to_string(nums[i]);
-            reverse(cur_num.begin(), cur_num.end());
-            rev[i] = nums[i] - stoi(cur_num);
+            rev[i] = rev_number(nums[i]) - nums[i];
         }
         
         unordered_map<int,int> mp;
