@@ -1,31 +1,36 @@
 class Solution {
+    vector<vector<int>> dp;
 public:
-    int solve(vector<int> &j, int index, int curMax, int d, vector<vector<vector<int>>> &dp){
-        // cout<<index<<" "<<index<<endl;
-        
-        if(index==j.size() || j.size() - index + 1 < d) return 300000;
-        
-        if(d==1){
-            return *max_element(j.begin() + index, j.end());
+    
+    int solve(vector<int> &j, int day, int index)
+    {
+        if(day == 0)
+        {
+            if(index == j.size())
+            {
+                return 0;
+            }else{
+                return 1e7;
+            }
+        }
+        if(index == j.size()) return 1e7;
+        if(dp[index][day] != -1) return dp[index][day];
+        int ans = INT_MAX;
+        int maxEl = INT_MIN;
+        for(int i = index; i < j.size(); i++)
+        {
+            
+            maxEl = max(j[i], maxEl);
+            ans = min(ans, maxEl + solve(j, day - 1, i+1));
+            
         }
         
-        
-        
-        if(dp[index][d][curMax] != -1) return dp[index][d][curMax];
-        curMax = max(curMax, j[index]);
-        
-        int pick = curMax + solve(j, index+1, 0, d-1, dp);
-        
-        int notPick = solve(j, index+1, curMax, d, dp);
-        
-        return dp[index][d][curMax] = min(pick, notPick);
-        
-        
+        return dp[index][day]= ans;
     }
-    int minDifficulty(vector<int>& j, int d) {
-        if(d > j.size()) return -1;
-        vector<vector<vector<int>>> dp(j.size(), vector<vector<int>> (d+1, vector<int> ( 1002, -1)));
-        return solve(j, 0, 0, d, dp);
+    int minDifficulty(vector<int>& job, int d) {
+        dp = vector<vector<int>> (job.size(), vector<int>(d + 1, -1));
+        int ans = solve(job, d, 0);
+        return ans > 1e7 ? -1 : ans;
     }
-    
 };
+
