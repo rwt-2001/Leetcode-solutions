@@ -17,9 +17,7 @@ public:
             
             if(cnt%3 == 0) ans += (cnt / 3);
             else{
-                ans += (cnt/3);
-                cnt %= 3;
-                ans += 1;
+                ans += (cnt/3)+ 1;
             }
             i--;
             
