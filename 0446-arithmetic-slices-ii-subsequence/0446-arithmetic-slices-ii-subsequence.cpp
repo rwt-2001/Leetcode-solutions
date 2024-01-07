@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numberOfArithmeticSlices(vector<int>& nums) {
-        vector<map<long long,long long>> dp(nums.size());
+        vector<map<long long,int>> dp(nums.size());
         long long sum = 0;
         long long n = nums.size();
         for(int i = 1; i < n; i++)
