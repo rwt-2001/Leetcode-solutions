@@ -10,27 +10,43 @@
  * };
  */
 class Solution {
-    vector<int> leaves1;
-    int i = 0;
 public:
-    bool dfs1(TreeNode* node){
-       
-        if(!node->left && !node->right){
-            if(node->val != leaves1[i++]) return false;
-        }
-        bool l1 = node->left ? dfs1(node->left) : true;
-        bool l2 = node->right ? dfs1(node->right) : true;
-        return l1 && l2;
-    }
-    void dfs2(TreeNode * node){
-        if(!node) return;
-        if(!node->left && !node->right) leaves1.push_back(node->val);
-        dfs2(node->left);
-        dfs2(node->right);
-    }
+
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        dfs2(root1);
-        return dfs1(root2) && i==leaves1.size() ;
+
+        stack<TreeNode*> q1, q2;
+        vector<int> qv1, qv2;
         
+        q1.push(root1);
+        while(q1.size())
+        {
+            
+            TreeNode* node  = q1.top();
+                q1.pop();
+                if(!node->left && !node->right) qv1.push_back(node->val); 
+                if(node->right)q1.push(node->right);
+                if(node->left) q1.push(node->left);
+        }
+        
+        q2.push(root2);
+        while(q2.size())
+        {
+            TreeNode* node  = q2.top();
+                q2.pop();
+                if(!node->left && !node->right) qv2.push_back(node->val); 
+                if(node->right)q2.push(node->right);
+                if(node->left) q2.push(node->left);
+            
+        }
+
+        if(qv1.size() != qv2.size()) return false;
+        
+        for(int i = 0; i < qv1.size(); i++)
+        {
+            
+            if(qv1[i]!=qv2[i]) return false;
+        }
+        return true;
+            
     }
 };
