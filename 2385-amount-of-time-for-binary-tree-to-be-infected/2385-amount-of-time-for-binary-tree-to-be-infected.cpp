@@ -11,54 +11,63 @@
  */
 class Solution {
 public:
-    void markParent(TreeNode *root, map<int, TreeNode *> &parent, TreeNode* startNode, int start){
-        if(!root) return;
-        if(root->val == start) *startNode = *root;
-        if(root->left) parent[root->left->val] = root;
-        if(root->right) parent[root->right->val] = root;
-        markParent(root->left, parent, startNode, start);
-        markParent(root->right, parent, startNode, start);
+    TreeNode* startNode;
+    int startNum;
+    map<TreeNode*,TreeNode*> mp;
+    void dfs(TreeNode* parent)
+    {
+        if(!parent) return;
+        if(parent->val == startNum) startNode = parent;
+        if(parent->left)
+        {
+            mp[parent->left] = parent;
+            dfs(parent->left);
+        }
+        
+        if(parent->right)
+        {
+            mp[parent->right] = parent;
+            dfs(parent->right);
+        }
         
     }
     int amountOfTime(TreeNode* root, int start) {
-        TreeNode * startNode = new TreeNode();
-        map<int, TreeNode *> parent;
-        markParent(root, parent, startNode, start);
-        map<int,int> visited;
         
+        startNum = start;
+        dfs(root);
         
-        queue<TreeNode *> q;
+        map<TreeNode*,int> visited;
+        queue<TreeNode*> q;
         q.push(startNode);
-        int time = -1;
-        
-        while(!q.empty()){
+        visited[startNode]++;
+        int ans = -1;
+        while(q.size())
+        {
             int n = q.size();
-            time++;
             
-            for(int i = 0;i<n;i++){
-                
-                TreeNode * curNode = q.front();
-                int curVal = curNode->val;
-             
+            while(n--)
+            {
+                TreeNode* node = q.front();
                 q.pop();
-                
-                visited[curVal] = 1;
-                TreeNode * parentNode = parent[curVal];
-                
-                if(parentNode && !visited[parentNode->val]){
-                    q.push(parentNode);
+                if(node->left && !visited[node->left])
+                {
+                    visited[node->left]++;
+                    q.push(node->left);
                 }
-                if(curNode->left && !visited[curNode->left->val]){
-                    q.push(curNode->left);
-                }
-                if(curNode->right && !visited[curNode->right->val]){
-                    q.push(curNode->right);
+                if(node->right && !visited[node->right])
+                {
+                    visited[node->right]++;
+                    q.push(node->right);
                 }
                 
+                if(mp[node] && !visited[mp[node]])
+                {
+                    visited[mp[node]]++;
+                    q.push(mp[node]);
+                }
             }
-            
-            
+            ans++;
         }
-        return time;
+        return ans;
     }
 };
