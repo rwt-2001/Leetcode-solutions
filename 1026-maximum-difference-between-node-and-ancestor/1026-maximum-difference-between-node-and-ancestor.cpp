@@ -10,19 +10,29 @@
  * };
  */
 class Solution {
+    int ans = -1;
 public:
-    int maxAncestorDiff(TreeNode* root) {
-        if(!root) return 0;
-        return dfs(root, root->val, root->val);
-    }
-    
-    int dfs(TreeNode *node, int minInt, int maxInt){
-        if(!node) return maxInt - minInt;
+    pair<int,int> dfs(TreeNode* node)
+    {
+        if(!node->left && !node->right) return {node->val,node->val};
+        pair<int,int> res = {INT_MAX, INT_MIN};
+        if(node->left)
+        {
+            auto result = dfs(node->left);
+            res = {min(res.first,result.first), max(res.second, result.second)};
+        }
+        if(node->right)
+        {
+            auto result = dfs(node->right);
+            res = {min(res.first,result.first), max(res.second, result.second)};
+        }
         
-        minInt = min(minInt, node->val);
-        maxInt = max(maxInt, node->val);
-        int nl = dfs(node->left, minInt, maxInt);
-        int nr = dfs(node->right, minInt, maxInt);
-        return max(nl, nr);
+        ans = max({abs(node->val - res.first), abs(node->val - res.second), ans});
+        return {min(res.first, node->val), max(res.second, node->val)};
+        
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        dfs(root);
+        return ans;
     }
 };
