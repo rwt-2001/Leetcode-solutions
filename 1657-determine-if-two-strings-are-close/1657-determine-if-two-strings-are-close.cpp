@@ -1,37 +1,31 @@
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
-        if(word2.size() != word1.size()) return false;
-        int n = word1.size();
-        vector<int> map1(26);
-        vector<int> map2(26);
-        
-        for(int i = 0;i<n;i++){
-            map1[word1[i] - 'a']++;
+        if(word1.size() != word2.size()) return false;
+        vector<int> mp1(26, 0);
+        vector<int> mp2(26, 0);
+        for(auto c: word1)
+        {
+            mp1[c-'a']++;
         }
         
-        for(auto &word : word2){
-            if(map1[word - 'a'] ==0 ) return false;
-            map2[word - 'a']++;
-        }
-         map<int,int> w1fr;
-        map<int,int> w2fr;
         
-        for(auto m : map1){
-            w1fr[m]++;
+        for(auto c: word2)
+        {
+            mp2[c-'a']++;
         }
-        for(auto m : map2){
-            w2fr[m]++;
-        }
+        map<int,int> mpp;
         
-        map<int,int> :: iterator itr1 =w1fr.begin();
-        map<int,int> :: iterator itr2 =w2fr.begin();
-        
-        while(itr1 != w1fr.end() && itr2!=w2fr.end()){
-            if(itr1->first != itr2->first || itr1->second != itr2->second) return false;
-            itr1++;
-            itr2++;
+        for(int i = 0; i < 26; i++)
+        {
+            if((mp1[i] && !mp2[i])  || (!mp1[i] && mp2[i])) return false;
+            mpp[mp1[i]]++;
+            mpp[mp2[i]]--;
         }
-        return itr1 == w1fr.end() && itr2==w2fr.end();
+        for(auto val: mpp)
+        {
+            if(val.second!=0) return false;
+        }
+        return true;
     }
 };
