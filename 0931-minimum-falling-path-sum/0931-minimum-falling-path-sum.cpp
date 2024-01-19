@@ -1,47 +1,58 @@
 class Solution {
-    int f(vector<vector<int>> &matrix, int i, int j, vector<vector<int>> &dp){
-        
-        if(i == matrix.size()) return 0;
-        if(j < 0 || j >= matrix[0].size()) return 1e6;
-        if(dp[i][j] != -1) return dp[i][j];
-        int cl = f(matrix, i + 1, j - 1, dp);
-        int cb = f(matrix, i + 1, j, dp);
-        int cr = f(matrix, i + 1, j+1, dp);
-        
-        return dp[i][j] = matrix[i][j] + min({cl, cb, cr});
-    }
+    vector<vector<int>> dp;
 public:
+    int solve(vector<vector<int>> &arr, int i, int j)
+    {
+        if(i >= arr.size() || i < 0 || j >= arr[0].size() || j < 0) return 1e8;
+        
+        if(i == arr.size() - 1) return arr[i][j];
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int ans = INT_MAX;
+        
+        ans = min(ans, arr[i][j] + solve(arr, i+1, j));
+        
+        ans = min(ans, arr[i][j] + solve(arr, i+1, j -1));
+        
+        ans = min(ans, arr[i][j] + solve(arr, i + 1, j+1));
+        
+        
+        return dp[i][j]=ans;
+        
+    }
     int minFallingPathSum(vector<vector<int>>& matrix) {
         
-        // int ans = INT_MAX;
-        // vector<vector<int>> dp(matrix.size(), (vector<int> (matrix[0].size(), -1)));
-        // for(int i = 0;i<matrix[0].size();i++){
-        //     ans = min(ans, f(matrix, 0, i, dp));
-        // }
-        // return ans;
         
-        //Tab
-        int col = matrix[0].size() - 1;
-        int row = matrix.size() - 1;
-
+     dp = vector<vector<int>> (matrix.size(), vector<int>(matrix[0].size(), 0));
+        
+        int lastRow = matrix.size() - 1;
+        for(int i = 0; i < matrix[0].size(); i++){
+            dp[lastRow][i] = matrix[lastRow][i];
+        }
         
         
-        for(int i = row-1; i>=0; i--){
-            for(int j = col; j>= 0; j--){
-                int cl = 1e6, cb = 1e6, cr = 1e6;
+        for(int i = matrix.size() - 2; i >= 0; i--)
+        {
+            for(int j = matrix[0].size() -1; j >= 0; j--)
+            {
+                
+                int num = INT_MAX;
                 
                 if(j-1 >= 0)
-                    cl = min(cl, matrix[i + 1][j - 1]);
+                {
+                    num = min(num, dp[i+1][j-1]);
+                }
+                if(j + 1 < matrix[0].size())
+                {
+                    num = min(num, dp[i+1][j+1]);
+                }
                 
-                cb = min(cb, matrix[i + 1][j]);
-                
-                if(j + 1 <= col)
-                    cr = min(cr, matrix[i + 1][j+1]);
-                
-                matrix[i][j] = matrix[i][j] + min({cl, cr, cb});
+                dp[i][j] = matrix[i][j] + min(num, dp[i+1][j]);
             }
         }
         
-        return *min_element(matrix[0].begin(), matrix[0].end());
+        
+        return *min_element(dp[0].begin(), dp[0].end());
+        
     }
 };
