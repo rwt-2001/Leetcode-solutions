@@ -1,37 +1,39 @@
 class Solution {
 public:
-    
-    int maxlen(int index, vector<string> &arr, vector<int> &mp){
-
-        if(index == arr.size()) return 0;
+    int solve(vector<string>&arr,int index,string formed){
+        if(index>=arr.size()){
+           return formed.size();
+        }
         
-        int notPick = maxlen(index+1, arr, mp);
         
-        int pick = 0;
-        int flag = 1;
-        for(int i = 0;i<arr[index].size();i++){
-            if(mp[arr[index][i] - 'a']){
-                flag = 0;
-                for(int j = 0;j<i;j++){
-                    mp[arr[index][j] - 'a']--;
+        int ans = 0;
+         map<int,int> mp;
+        for(auto &cc: formed){
+            mp[cc]++;
+        }
+        
+            bool flag = false;
+            map<int,int> temp;
+            for(auto &cc: arr[index]){
+                if(mp[cc] || temp[cc]){
+                    flag = true;
+                    break;
                 }
-                break;
+                temp[cc]++;
+                
             }
-            mp[arr[index][i]-'a']++;
-        }
+            
+            if(!flag){
+                ans = max(ans, solve(arr, index + 1, formed + arr[index]));
+            }
+            
+            ans = max(ans, solve(arr, index + 1, formed));
         
-        if(flag){
-            pick = arr[index].size() + maxlen(index+1, arr, mp);
-            for(int j = 0;j<arr[index].size();j++){
-                mp[arr[index][j] - 'a']--;
-            }
-        }
-        return max(pick, notPick);
+        
+        return ans;
+        
     }
     int maxLength(vector<string>& arr) {
-        
-        vector<int> mp(26);
-        return maxlen(0 ,arr, mp);
-        
+        return solve(arr,0, "");
     }
 };
