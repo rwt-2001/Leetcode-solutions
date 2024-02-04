@@ -2,7 +2,7 @@ class Solution {
 public:
     bool haveSame(map<char,int> &tmp, map<char,int>&smp)
     {
-        for(auto val : tmp)
+        for(auto &val : tmp)
         {
             
             if(val.second > smp[val.first]) return false;
