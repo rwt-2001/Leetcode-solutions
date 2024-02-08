@@ -1,42 +1,26 @@
 class Solution {
+    vector<int> dp;
+    int solve(int n)
+    {
+        if(n==0){
+            return 0;
+        }
+        if(n < 0)
+        {
+            return n;
+        }
+        if(dp[n]!=-1) return dp[n];
+        int ans = n;
+        for(int i = 1; i <= sqrt(n);i++)
+        {
+            ans = min(ans, solve(n - (i*i)));
+        }
+        
+        return dp[n] =  ans + 1;
+    }
 public:
     int numSquares(int n) {
-        
-        
-        int lmt = sqrt(n);
-        vector<int> rootN;
-        vector<int> dp(n+1, -1);
-        for(int i = 1;i<=lmt;i++){
-            rootN.push_back(i*i);
-        }
-        
-        queue<int> q;
-        
-        
-        q.push(n);
-        int steps = 0;
-        while(q.size() != 0){
-            int n = q.size();
-            
-            for(int i=0;i<n;i++){
-                int curT = q.front();
-                q.pop();
-                if(curT== 0) return steps;
-                for(auto &num : rootN){
-                    
-                    if(curT-num < 0 || dp[curT-num] != -1) continue;
-                  
-                    q.push(curT-num);
-                    dp[curT-num] = 1;
-                    
-                }
-                
-            }
-            
-            
-            steps++;
-        }
-        
-        return 0;
+        dp = vector<int> (n+1, -1);
+        return solve(n);
     }
 };
